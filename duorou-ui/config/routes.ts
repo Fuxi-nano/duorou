@@ -25,13 +25,19 @@
             routes: [
               {
                 path: '/',
-                redirect: '/welcome',
+                redirect: '/index',
               },
               {
-                path: '/welcome',
-                name: 'welcome',
+                path: '/index',
+                name: '首页',
                 icon: 'smile',
-                component: './Welcome',
+                component: './Index',
+              },
+              {
+                path: '/class',
+                name: '课程管理',
+                icon: 'smile',
+                component: './Class',
               },
               {
                 path: '/admin',
@@ -44,16 +50,10 @@
                     path: '/admin/sub-page',
                     name: 'sub-page',
                     icon: 'smile',
-                    component: './Welcome',
+                    component: './Index',
                     authority: ['admin'],
                   },
                 ],
-              },
-              {
-                name: 'list.table-list',
-                icon: 'table',
-                path: '/list',
-                component: './TableList',
               },
               {
                 component: './404',
