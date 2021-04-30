@@ -72,22 +72,6 @@ const Login: React.FC<LoginProps> = (props) => {
           return Promise.resolve();
         }}
       >
-        <Tabs activeKey={type} onChange={setType}>
-          <Tabs.TabPane
-            key="account"
-            tab={intl.formatMessage({
-              id: 'pages.login.accountLogin.tab',
-              defaultMessage: 'Account password login',
-            })}
-          />
-          <Tabs.TabPane
-            key="mobile"
-            tab={intl.formatMessage({
-              id: 'pages.login.phoneLogin.tab',
-              defaultMessage: 'Mobile phone number login',
-            })}
-          />
-        </Tabs>
 
         {status === 'error' && loginType === 'account' && !submitting && (
           <LoginMessage
@@ -238,21 +222,8 @@ const Login: React.FC<LoginProps> = (props) => {
           <ProFormCheckbox noStyle name="autoLogin">
             <FormattedMessage id="pages.login.rememberMe" defaultMessage="Auto login" />
           </ProFormCheckbox>
-          <a
-            style={{
-              float: 'right',
-            }}
-          >
-            <FormattedMessage id="pages.login.forgotPassword" defaultMessage="Forget password" />
-          </a>
         </div>
       </ProForm>
-      <Space className={styles.other}>
-        <FormattedMessage id="pages.login.loginWith" defaultMessage="Other login methods" />
-        <AlipayCircleOutlined className={styles.icon} />
-        <TaobaoCircleOutlined className={styles.icon} />
-        <WeiboCircleOutlined className={styles.icon} />
-      </Space>
     </div>
   );
 };
