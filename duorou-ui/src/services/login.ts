@@ -7,15 +7,8 @@ export type LoginParamsType = {
   captcha: string;
 };
 
-export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/api/login/account', {
-    method: 'POST',
-    data: params,
-  });
-}
-
 export async function accountLogin(params: LoginParamsType) {
-  return request('/api/login/account1', {
+  return request('/api/login/account', {
     method: 'POST',
     data: params,
   });
