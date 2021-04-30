@@ -34,10 +34,10 @@
                 component: './Index',
               },
               {
-                path: '/course',
+                path: '/specialty',
                 name: '课程管理',
                 icon: 'smile',
-                component: './Course',
+                component: './Specialty',
               },
               {
                 path: '/class',

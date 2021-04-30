@@ -35,7 +35,7 @@ const LoginMessage: React.FC<{
 const Login: React.FC<LoginProps> = (props) => {
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
-  const [type, setType] = useState<string>('user');
+  const [type, setType] = useState<string>('student');
   const intl = useIntl();
 
   const handleSubmit = (values: LoginParamsType) => {
@@ -68,12 +68,12 @@ const Login: React.FC<LoginProps> = (props) => {
       >
         <Tabs activeKey={type} onChange={setType}>
           <Tabs.TabPane
-            key="admin"
-            tab="管理员登录"
+            key="student"
+            tab="学生登录"
           />
           <Tabs.TabPane
-            key="user"
-            tab="用户登录"
+            key="admin"
+            tab="管理员登录"
           />
         </Tabs>
         {type === 'admin' && (
@@ -124,7 +124,7 @@ const Login: React.FC<LoginProps> = (props) => {
             />
           </>
         )}
-        {type === 'user' && (
+        {type === 'student' && (
           <>
           <ProFormText
             name="userName"
