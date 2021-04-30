@@ -50,6 +50,7 @@ const errorHandler = (error: { response: Response }): Response => {
 const request = extend({
   errorHandler, // default error handling
   credentials: 'include', // Does the default request bring cookies
+  //prefix: 'you url',
 });
 
 export default request;
