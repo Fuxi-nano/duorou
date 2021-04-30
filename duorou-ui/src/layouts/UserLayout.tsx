@@ -57,7 +57,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        {/*<DefaultFooter />*/}
       </div>
     </HelmetProvider>
   );

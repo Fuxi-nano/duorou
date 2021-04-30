@@ -30,13 +30,19 @@
               {
                 path: '/index',
                 name: '首页',
-                icon: 'smile',
+                icon: 'crown',
                 component: './Index',
               },
               {
-                path: '/class',
+                path: '/course',
                 name: '课程管理',
                 icon: 'smile',
+                component: './Course',
+              },
+              {
+                path: '/class',
+                name: '班级管理',
+                icon: 'crown',
                 component: './Class',
               },
               {
