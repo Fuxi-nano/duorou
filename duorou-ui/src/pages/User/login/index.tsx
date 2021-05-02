@@ -66,7 +66,7 @@ const Login: React.FC<LoginProps> = (props) => {
           return Promise.resolve();
         }}
       >
-        <Tabs activeKey={type} onChange={setType}>
+        {/* <Tabs activeKey={type} onChange={setType}>
           <Tabs.TabPane
             key="student"
             tab="学生登录"
@@ -75,7 +75,7 @@ const Login: React.FC<LoginProps> = (props) => {
             key="admin"
             tab="管理员登录"
           />
-        </Tabs>
+        </Tabs> */}
         {type === 'admin' && (
           <>
             <ProFormText
@@ -185,9 +185,9 @@ const Login: React.FC<LoginProps> = (props) => {
             })}
           />
         )}
-          <ProFormCheckbox noStyle name="autoLogin">
+          {/* <ProFormCheckbox noStyle name="autoLogin">
             <FormattedMessage id="pages.login.rememberMe" defaultMessage="Auto login" />
-          </ProFormCheckbox>
+          </ProFormCheckbox> */}
         </div>
       </ProForm>
     </div>

@@ -29,19 +29,19 @@
               },
               {
                 path: '/index',
-                name: '首页',
+                name: 'index',
                 icon: 'crown',
                 component: './Index',
               },
               {
                 path: '/specialty',
-                name: '课程管理',
+                name: 'specialty',
                 icon: 'smile',
                 component: './Specialty',
               },
               {
                 path: '/class',
-                name: '班级管理',
+                name: 'class',
                 icon: 'crown',
                 component: './Class',
               },
