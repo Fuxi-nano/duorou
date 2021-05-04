@@ -5,14 +5,7 @@ import { queryCurrent, query as queryUsers } from '@/services/user';
 export type CurrentUser = {
   avatar?: string;
   name?: string;
-  title?: string;
-  group?: string;
-  signature?: string;
-  tags?: {
-    key: string;
-    label: string;
-  }[];
-  userid?: string;
+  id?: string;
   unreadCount?: number;
 };
 
