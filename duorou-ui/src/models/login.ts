@@ -40,10 +40,9 @@ const Model: LoginModelType = {
         payload: response,
       });
       // Login successfully
-      if (response.success) {
+      if (response.status === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
-        message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params as { redirect: string };
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
@@ -80,11 +79,11 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.data.currentAuthority);
+      setAuthority("admin");
       return {
         ...state,
-        status: payload.data.status,
-        type: payload.data.type,
+        status: payload.status,
+        type: 'student',
       };
     },
   },
