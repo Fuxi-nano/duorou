@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Input, Drawer } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -98,6 +98,16 @@ const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<TableListItem>();
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
+  const [specialtyList, setSpecialtyList] = useState<{}>({});
+
+  useEffect(() => {
+    fetch('/api/specialty/list')
+    .then(response => response.json())
+    .then(data => {
+      setSpecialtyList(JSON.parse(JSON.stringify(data)));
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -105,6 +115,12 @@ const TableList: React.FC = () => {
   const intl = useIntl();
 
   const columns: ProColumns<TableListItem>[] = [
+    {
+      title: '课程',
+      dataIndex: 'specialtyId',
+      hideInTable: true,
+      valueEnum: specialtyList
+    },
     {
       title: (
         <FormattedMessage
@@ -114,6 +130,7 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'name',
       tip: 'The rule name is the unique key',
+      hideInSearch:true,
       render: (dom, entity) => {
         return (
           <a
@@ -263,6 +280,9 @@ const TableList: React.FC = () => {
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
+        params={{
+          id:2,
+        }}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows);
