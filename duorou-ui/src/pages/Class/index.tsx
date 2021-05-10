@@ -129,12 +129,12 @@ const TableList: React.FC = () => {
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.updateForm.ruleName.nameLabel"
-          defaultMessage="Rule name"
+          id="pages.searchTable.specialty.name"
+          defaultMessage="specialty name"
         />
       ),
       dataIndex: 'name',
-      tip: 'The rule name is the unique key',
+      //tip: 'The rule name is the unique key',
       hideInSearch:true,
       render: (dom, entity) => {
         return (
@@ -148,6 +148,16 @@ const TableList: React.FC = () => {
           </a>
         );
       },
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.degreeName" defaultMessage="degree name" />,
+      dataIndex: 'degreeName',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.ageLimit" defaultMessage="age limit" />,
+      dataIndex: 'ageLimit',
+      valueType: 'textarea',
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,

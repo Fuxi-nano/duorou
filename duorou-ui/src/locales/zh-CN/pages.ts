@@ -63,5 +63,7 @@ export default {
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
   'pages.specialty.view.class':'查看班级',
-  'pages.searchTable.specialty.name':'课程',
+  'pages.searchTable.specialty.name':'专业课程',
+  'pages.searchTable.degreeName':'专业程度',
+  'pages.searchTable.ageLimit':'年龄限制',
 };
