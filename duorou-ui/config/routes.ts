@@ -34,32 +34,10 @@
                 component: './Index',
               },
               {
-                path: '/specialty',
-                name: 'specialty',
-                icon: 'smile',
-                component: './Specialty',
-              },
-              {
                 path: '/class',
                 name: 'class',
                 icon: 'crown',
                 component: './Class',
-              },
-              {
-                path: '/admin',
-                name: 'admin',
-                icon: 'crown',
-                component: './Admin',
-                authority: ['admin'],
-                routes: [
-                  {
-                    path: '/admin/sub-page',
-                    name: 'sub-page',
-                    icon: 'smile',
-                    component: './Index',
-                    authority: ['admin'],
-                  },
-                ],
               },
               {
                 component: './404',
