@@ -116,7 +116,12 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '课程',
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.specialty.name"
+          defaultMessage="specialty name"
+        />
+      ),
       dataIndex: 'specialtyId',
       hideInTable: true,
       valueEnum: specialtyList
