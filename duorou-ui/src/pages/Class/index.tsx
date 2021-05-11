@@ -160,6 +160,31 @@ const TableList: React.FC = () => {
       valueType: 'textarea',
     },
     {
+      title: <FormattedMessage id="pages.searchTable.className" defaultMessage="class name" />,
+      dataIndex: 'className',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.campusName" defaultMessage="campus name" />,
+      dataIndex: 'campusName',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.subjectDesc" defaultMessage="subject desc" />,
+      dataIndex: 'subjectDesc',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.tels" defaultMessage="tels" />,
+      dataIndex: 'tels',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.termName" defaultMessage="term name" />,
+      dataIndex: 'termName',
+      valueType: 'textarea',
+    },
+    {
       title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,
       dataIndex: 'desc',
       valueType: 'textarea',

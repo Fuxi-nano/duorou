@@ -66,4 +66,9 @@ export default {
   'pages.searchTable.specialty.name':'专业课程',
   'pages.searchTable.degreeName':'专业程度',
   'pages.searchTable.ageLimit':'年龄限制',
+  'pages.searchTable.className':'班级名称',
+  'pages.searchTable.campusName':'报名区域',
+  'pages.searchTable.subjectDesc':'上课课表',
+  'pages.searchTable.tels':'咨询电话',
+  'pages.searchTable.termName':'学期',
 };
