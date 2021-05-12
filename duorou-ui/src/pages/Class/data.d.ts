@@ -1,4 +1,4 @@
-export type TableListItem = {
+export type ClassListItem = {
   key: number;
   disabled?: boolean;
   href: string;
@@ -11,20 +11,28 @@ export type TableListItem = {
   updatedAt: Date;
   createdAt: Date;
   progress: number;
+  specialtyName:string;
+  degreeName:string;
+  className:string;
+  subjectDesc:string;
+  termName:string;
+  campusName:string;
+  ageLimit:string;
+  tels:string;
 };
 
-export type TableListPagination = {
+export type ClassListPagination = {
   total: number;
   pageSize: number;
   current: number;
 };
 
-export type TableListData = {
-  list: TableListItem[];
-  pagination: Partial<TableListPagination>;
+export type ClassListData = {
+  list: ClassListItem[];
+  pagination: Partial<ClassListPagination>;
 };
 
-export type TableListParams = {
+export type ClassListParams = {
   status?: string;
   name?: string;
   desc?: string;

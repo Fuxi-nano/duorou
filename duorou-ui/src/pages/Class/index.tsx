@@ -10,7 +10,7 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import type { TableListItem } from './data.d';
+import type { ClassListItem } from './data.d';
 import { queryRule, updateRule, addRule, removeRule } from './service';
 
 /**
@@ -18,7 +18,7 @@ import { queryRule, updateRule, addRule, removeRule } from './service';
  * @zh-CN 添加节点
  * @param fields
  */
-const handleAdd = async (fields: TableListItem) => {
+const handleAdd = async (fields: ClassListItem) => {
   const hide = message.loading('Adding');
   try {
     await addRule({ ...fields });
@@ -63,7 +63,7 @@ const handleUpdate = async (fields: FormValueType) => {
  *
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: TableListItem[]) => {
+const handleRemove = async (selectedRows: ClassListItem[]) => {
   const hide = message.loading('Deleting');
   if (!selectedRows) return true;
   try {
@@ -80,7 +80,7 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
   }
 };
 
-const TableList: React.FC = () => {
+const ClassList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
    * @zh-CN 新建窗口的弹窗
@@ -95,8 +95,8 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<TableListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
+  const [currentRow, setCurrentRow] = useState<ClassListItem>();
+  const [selectedRowsState, setSelectedRows] = useState<ClassListItem[]>([]);
 
   const [specialtyList, setSpecialtyList] = useState<{}>({});
 
@@ -114,11 +114,11 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: ProColumns<ClassListItem>[] = [
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.specialty.name"
+          id="pages.class.specialty.name"
           defaultMessage="specialty name"
         />
       ),
@@ -129,13 +129,25 @@ const TableList: React.FC = () => {
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.specialty.name"
+          id="pages.class.specialty.name"
           defaultMessage="specialty name"
         />
       ),
-      dataIndex: 'name',
+      dataIndex: 'specialtyName',
       //tip: 'The rule name is the unique key',
       hideInSearch:true,
+    },
+    {
+      title: <FormattedMessage id="pages.class.degree.name" defaultMessage="degree name" />,
+      dataIndex: 'degreeName',
+    },
+    {
+      title: <FormattedMessage id="pages.class.age.limit" defaultMessage="age limit" />,
+      dataIndex: 'ageLimit',
+    },
+    {
+      title: <FormattedMessage id="pages.class.class.name" defaultMessage="class name" />,
+      dataIndex: 'className',
       render: (dom, entity) => {
         return (
           <a
@@ -150,44 +162,70 @@ const TableList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.degreeName" defaultMessage="degree name" />,
-      dataIndex: 'degreeName',
-      valueType: 'textarea',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.ageLimit" defaultMessage="age limit" />,
-      dataIndex: 'ageLimit',
-      valueType: 'textarea',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.className" defaultMessage="class name" />,
-      dataIndex: 'className',
-      valueType: 'textarea',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.campusName" defaultMessage="campus name" />,
+      title: <FormattedMessage id="pages.class.campus.name" defaultMessage="campus name" />,
       dataIndex: 'campusName',
-      valueType: 'textarea',
+      valueEnum: {
+        0: {
+          text: (
+            <FormattedMessage
+              id="pages.searchTable.nameStatus.default"
+              defaultMessage="Shut down"
+            />
+          ),
+          status: 'Default',
+        },
+        1: {
+          text: (
+            <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="Running" />
+          ),
+          status: 'Processing',
+        },
+        2: {
+          text: (
+            <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="Online" />
+          ),
+          status: 'Success',
+        },
+        3: {
+          text: (
+            <FormattedMessage
+              id="pages.searchTable.nameStatus.abnormal"
+              defaultMessage="Abnormal"
+            />
+          ),
+          status: 'Error',
+        },
+      },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.subjectDesc" defaultMessage="subject desc" />,
+      title: <FormattedMessage id="pages.class.subject.desc" defaultMessage="subject desc" />,
       dataIndex: 'subjectDesc',
-      valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.tels" defaultMessage="tels" />,
+      title: <FormattedMessage id="pages.class.tels" defaultMessage="tels" />,
       dataIndex: 'tels',
-      valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.termName" defaultMessage="term name" />,
+      title: <FormattedMessage id="pages.class.term.name" defaultMessage="term name" />,
       dataIndex: 'termName',
-      valueType: 'textarea',
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,
-      dataIndex: 'desc',
-      valueType: 'textarea',
+      valueEnum: {
+        0: {
+          text: '暑期',
+          status: '1',
+        },
+        1: {
+          text: '秋季',
+          status: '2',
+        },
+        2: {
+          text: '春季',
+          status: '0',
+        },
+        3: {
+          text: '寒假',
+          status: '3',
+        },
+      },
     },
     {
       title: (
@@ -297,7 +335,7 @@ const TableList: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<TableListItem>
+      <ProTable<ClassListItem>
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',
           defaultMessage: 'Enquiry form',
@@ -377,7 +415,7 @@ const TableList: React.FC = () => {
         visible={createModalVisible}
         onVisibleChange={handleModalVisible}
         onFinish={async (value) => {
-          const success = await handleAdd(value as TableListItem);
+          const success = await handleAdd(value as ClassListItem);
           if (success) {
             handleModalVisible(false);
             if (actionRef.current) {
@@ -432,7 +470,7 @@ const TableList: React.FC = () => {
         closable={false}
       >
         {currentRow?.name && (
-          <ProDescriptions<TableListItem>
+          <ProDescriptions<ClassListItem>
             column={2}
             title={currentRow?.name}
             request={async () => ({
@@ -441,7 +479,7 @@ const TableList: React.FC = () => {
             params={{
               id: currentRow?.name,
             }}
-            columns={columns as ProDescriptionsItemProps<TableListItem>[]}
+            columns={columns as ProDescriptionsItemProps<ClassListItem>[]}
           />
         )}
       </Drawer>
@@ -449,4 +487,4 @@ const TableList: React.FC = () => {
   );
 };
 
-export default TableList;
+export default ClassList;

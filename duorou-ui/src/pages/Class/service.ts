@@ -1,7 +1,7 @@
 import request from '@/utils/request';
-import type { TableListParams, TableListItem } from './data.d';
+import type { ClassListParams, ClassListItem } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
+export async function queryRule(params?: ClassListParams) {
   return request('/api/rule', {
     params,
   });
@@ -17,7 +17,7 @@ export async function removeRule(params: { key: number[] }) {
   });
 }
 
-export async function addRule(params: TableListItem) {
+export async function addRule(params: ClassListItem) {
   return request('/api/rule', {
     method: 'POST',
     data: {
@@ -27,7 +27,7 @@ export async function addRule(params: TableListItem) {
   });
 }
 
-export async function updateRule(params: TableListParams) {
+export async function updateRule(params: ClassListParams) {
   return request('/api/rule', {
     method: 'POST',
     data: {

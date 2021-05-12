@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
 import { parse } from 'url';
-import { TableListItem, TableListParams } from '@/pages/TableList/data';
+import { ClassListItem, ClassListParams } from '@/pages/TableList/data';
 
 // mock tableListDataSource
 const genList = (current: number, pageSize: number) => {
-  const tableListDataSource: TableListItem[] = [];
+  const tableListDataSource: ClassListItem[] = [];
 
   for (let i = 0; i < pageSize; i += 1) {
     const index = (current - 1) * 10 + i;
@@ -25,6 +25,14 @@ const genList = (current: number, pageSize: number) => {
       updatedAt: new Date(),
       createdAt: new Date(),
       progress: Math.ceil(Math.random() * 100),
+      specialtyName:'宝宝英语',
+      degreeName:'启蒙',
+      className:'QD11',
+      subjectDesc:'课表',
+      termName:'秋季',
+      campusName:'活动中心',
+      ageLimit:'2017-06-01:2021-01-02',
+      tels:'111111',
     });
   }
   tableListDataSource.reverse();
@@ -39,7 +47,7 @@ function getRule(req: Request, res: Response, u: string) {
     realUrl = req.url;
   }
   const { current = 1, pageSize = 10 } = req.query;
-  const params = (parse(realUrl, true).query as unknown) as TableListParams;
+  const params = (parse(realUrl, true).query as unknown) as ClassListParams;
 
   let dataSource = [...tableListDataSource].slice(
     ((current as number) - 1) * (pageSize as number),
