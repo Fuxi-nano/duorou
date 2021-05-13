@@ -33,6 +33,9 @@ const genList = (current: number, pageSize: number) => {
       campusName:'活动中心',
       ageLimit:'2017-06-01:2021-01-02',
       tels:'111111',
+      maxAge:1504108800000,
+      minAge:1472659200000,
+      descript:'这里是课程描述'
     });
   }
   tableListDataSource.reverse();

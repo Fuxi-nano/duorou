@@ -144,6 +144,7 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.age.limit" defaultMessage="age limit" />,
       dataIndex: 'ageLimit',
+      hideInSearch:true,
     },
     {
       title: <FormattedMessage id="pages.class.class.name" defaultMessage="class name" />,
@@ -200,10 +201,12 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.subject.desc" defaultMessage="subject desc" />,
       dataIndex: 'subjectDesc',
+      hideInSearch:true,
     },
     {
       title: <FormattedMessage id="pages.class.tels" defaultMessage="tels" />,
       dataIndex: 'tels',
+      hideInSearch:true,
     },
     {
       title: <FormattedMessage id="pages.class.term.name" defaultMessage="term name" />,
@@ -228,86 +231,10 @@ const ClassList: React.FC = () => {
       },
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleCallNo"
-          defaultMessage="Number of service calls"
-        />
-      ),
-      dataIndex: 'callNo',
-      sorter: true,
-      hideInForm: true,
-      renderText: (val: string) =>
-        `${val}${intl.formatMessage({
-          id: 'pages.searchTable.tenThousand',
-          defaultMessage: ' 万 ',
-        })}`,
-    },
-    {
-      title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status" />,
-      dataIndex: 'status',
-      hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.default"
-              defaultMessage="Shut down"
-            />
-          ),
-          status: 'Default',
-        },
-        1: {
-          text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="Running" />
-          ),
-          status: 'Processing',
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="Online" />
-          ),
-          status: 'Success',
-        },
-        3: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.abnormal"
-              defaultMessage="Abnormal"
-            />
-          ),
-          status: 'Error',
-        },
-      },
-    },
-    {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleUpdatedAt"
-          defaultMessage="Last scheduled time"
-        />
-      ),
-      sorter: true,
-      dataIndex: 'updatedAt',
-      valueType: 'dateTime',
-      renderFormItem: (item, { defaultRender, ...rest }, form) => {
-        const status = form.getFieldValue('status');
-        if (`${status}` === '0') {
-          return false;
-        }
-        if (`${status}` === '3') {
-          return (
-            <Input
-              {...rest}
-              placeholder={intl.formatMessage({
-                id: 'pages.searchTable.exception',
-                defaultMessage: 'Please enter the reason for the exception!',
-              })}
-            />
-          );
-        }
-        return defaultRender(item);
-      },
+      title: '生日',
+      dataIndex: 'birthday',
+      valueType: 'date',
+      hideInTable: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
@@ -323,13 +250,14 @@ const ClassList: React.FC = () => {
         >
           <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
         </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          <FormattedMessage
-            id="pages.searchTable.subscribeAlert"
-            defaultMessage="Subscribe to alerts"
-          />
-        </a>,
       ],
+    },
+  ];
+
+  const detailColumns: ProColumns<ClassListItem>[] = [
+    {
+      title: '班级描述',
+      dataIndex: 'descript',
     },
   ];
 
@@ -469,17 +397,17 @@ const ClassList: React.FC = () => {
         }}
         closable={false}
       >
-        {currentRow?.name && (
+        {currentRow?.className && (
           <ProDescriptions<ClassListItem>
             column={2}
-            title={currentRow?.name}
+            title={currentRow?.className}
             request={async () => ({
               data: currentRow || {},
             })}
             params={{
-              id: currentRow?.name,
+              id: currentRow?.className,
             }}
-            columns={columns as ProDescriptionsItemProps<ClassListItem>[]}
+            columns={detailColumns as ProDescriptionsItemProps<ClassListItem>[]}
           />
         )}
       </Drawer>
