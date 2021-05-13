@@ -15,10 +15,13 @@ export type ClassListItem = {
   degreeName:string;
   className:string;
   subjectDesc:string;
-  termName:string;
-  campusName:string;
+  termId:string;
+  campusId:string;
   ageLimit:string;
   tels:string;
+  minAge:number;
+  maxAge:number;
+  descript:string;
 };
 
 export type ClassListPagination = {

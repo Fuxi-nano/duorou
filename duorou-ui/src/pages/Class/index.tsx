@@ -100,11 +100,21 @@ const ClassList: React.FC = () => {
 
   const [specialtyList, setSpecialtyList] = useState<{}>({});
 
+  const [campusList, setCampusList] = useState<{}>({});
+
   useEffect(() => {
     fetch('/api/specialty/list')
     .then(response => response.json())
     .then(data => {
       setSpecialtyList(JSON.parse(JSON.stringify(data)));
+    });
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/campus/list')
+    .then(response => response.json())
+    .then(data => {
+      setCampusList(JSON.parse(JSON.stringify(data)));
     });
   }, []);
 
@@ -164,39 +174,8 @@ const ClassList: React.FC = () => {
     },
     {
       title: <FormattedMessage id="pages.class.campus.name" defaultMessage="campus name" />,
-      dataIndex: 'campusName',
-      valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.default"
-              defaultMessage="Shut down"
-            />
-          ),
-          status: 'Default',
-        },
-        1: {
-          text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="Running" />
-          ),
-          status: 'Processing',
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="Online" />
-          ),
-          status: 'Success',
-        },
-        3: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.abnormal"
-              defaultMessage="Abnormal"
-            />
-          ),
-          status: 'Error',
-        },
-      },
+      dataIndex: 'campusId',
+      valueEnum: campusList
     },
     {
       title: <FormattedMessage id="pages.class.subject.desc" defaultMessage="subject desc" />,
@@ -210,23 +189,19 @@ const ClassList: React.FC = () => {
     },
     {
       title: <FormattedMessage id="pages.class.term.name" defaultMessage="term name" />,
-      dataIndex: 'termName',
+      dataIndex: 'termId',
       valueEnum: {
         0: {
-          text: '暑期',
-          status: '1',
+          text: '春季', 
         },
         1: {
-          text: '秋季',
-          status: '2',
+          text: '暑期',
         },
         2: {
-          text: '春季',
-          status: '0',
+          text: '秋季',
         },
         3: {
           text: '寒假',
-          status: '3',
         },
       },
     },
