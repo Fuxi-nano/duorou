@@ -36,3 +36,16 @@ export async function updateRule(params: ClassListParams) {
     },
   });
 }
+
+export type ParamsType = {
+  id: string;
+};
+
+export async function subscribeClass(params: ParamsType) {
+  return request('/api/class/subscribe', {
+    method: 'POST',
+    data: {
+      ...params,
+    },
+  });
+}

@@ -1,4 +1,3 @@
-import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Input, Drawer } from 'antd';
 import React, { useState, useRef,useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
@@ -11,7 +10,7 @@ import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import type { ClassListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule } from './service';
+import { queryRule, updateRule, addRule, removeRule,subscribeClass } from './service';
 
 /**
  * @en-US Add node
@@ -118,6 +117,13 @@ const ClassList: React.FC = () => {
     });
   }, []);
 
+  // const request = async () => [
+  //   { label: '全部', value: 'all' },
+  //   { label: '未解决', value: 'open' },
+  //   { label: '已解决', value: 'closed' },
+  //   { label: '解决中', value: 'processing' },
+  // ];
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -150,6 +156,8 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.degree.name" defaultMessage="degree name" />,
       dataIndex: 'degreeName',
+      //request,
+      hideInSearch:true,
     },
     {
       title: <FormattedMessage id="pages.class.age.limit" defaultMessage="age limit" />,
@@ -159,6 +167,7 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.class.name" defaultMessage="class name" />,
       dataIndex: 'className',
+      hideInSearch:true,
       render: (dom, entity) => {
         return (
           <a
@@ -217,13 +226,21 @@ const ClassList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <a
-          key="config"
-          onClick={() => {
-            handleUpdateModalVisible(true);
-            setCurrentRow(record);
+          key="subscribe"
+          onClick={async () => {
+            const response=await subscribeClass({
+              id: record.campusId,
+            });
+            if (response.status === 'ok') {
+              message.success('successfully and will refresh soon');
+              setSelectedRows([]);
+              actionRef.current?.reloadAndRest?.();
+            }else{
+              message.error('subscribe error');
+            }
           }}
         >
-          <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
+          <FormattedMessage id="pages.class.subscribe" defaultMessage="subscribe" />
         </a>,
       ],
     },
@@ -249,15 +266,16 @@ const ClassList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button
-            type="primary"
-            key="primary"
-            onClick={() => {
-              handleModalVisible(true);
-            }}
-          >
-            <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
-          </Button>,
+          // 新增按钮
+          // <Button
+          //   type="primary"
+          //   key="primary"
+          //   onClick={() => {
+          //     handleModalVisible(true);
+          //   }}
+          // >
+          //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+          // </Button>,
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}

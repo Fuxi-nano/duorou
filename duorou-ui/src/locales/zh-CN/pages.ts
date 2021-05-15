@@ -62,6 +62,7 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  'pages.class.subscribe':'订阅',
   'pages.class.specialty.name':'专业课程',
   'pages.class.degree.name':'专业程度',
   'pages.class.age.limit':'年龄限制',
