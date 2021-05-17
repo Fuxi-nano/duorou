@@ -42,8 +42,8 @@ const handleUpdate = async (fields: FormValueType) => {
   try {
     await updateRule({
       name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
+      desc: fields.descript,
+      key: fields.id,
     });
     hide();
 
@@ -67,7 +67,7 @@ const handleRemove = async (selectedRows: ClassListItem[]) => {
   if (!selectedRows) return true;
   try {
     await removeRule({
-      key: selectedRows.map((row) => row.key),
+      key: selectedRows.map((row) => row.id),
     });
     hide();
     message.success('Deleted successfully and will refresh soon');
@@ -166,7 +166,7 @@ const ClassList: React.FC = () => {
     },
     {
       title: <FormattedMessage id="pages.class.class.name" defaultMessage="class name" />,
-      dataIndex: 'className',
+      dataIndex: 'name',
       hideInSearch:true,
       render: (dom, entity) => {
         return (
@@ -229,7 +229,7 @@ const ClassList: React.FC = () => {
           key="subscribe"
           onClick={async () => {
             const response=await subscribeClass({
-              id: record.campusId,
+              id: record.id,
             });
             if (response.status === 'ok') {
               message.success('successfully and will refresh soon');
@@ -261,7 +261,7 @@ const ClassList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
@@ -279,9 +279,9 @@ const ClassList: React.FC = () => {
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
-        params={{
-          id:2,
-        }}
+        // params={{
+        //   id:2,
+        // }}
         rowSelection={{
           onChange: (_, selectedRows) => {
             setSelectedRows(selectedRows);
@@ -296,14 +296,6 @@ const ClassList: React.FC = () => {
               <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
               <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
               &nbsp;&nbsp;
-              <span>
-                <FormattedMessage
-                  id="pages.searchTable.totalServiceCalls"
-                  defaultMessage="Total number of service calls"
-                />{' '}
-                {selectedRowsState.reduce((pre, item) => pre + item.callNo, 0)}{' '}
-                <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万" />
-              </span>
             </div>
           }
         >
@@ -390,15 +382,15 @@ const ClassList: React.FC = () => {
         }}
         closable={false}
       >
-        {currentRow?.className && (
+        {currentRow?.name && (
           <ProDescriptions<ClassListItem>
             column={2}
-            title={currentRow?.className}
+            title={currentRow?.name}
             request={async () => ({
               data: currentRow || {},
             })}
             params={{
-              id: currentRow?.className,
+              id: currentRow?.name,
             }}
             columns={detailColumns as ProDescriptionsItemProps<ClassListItem>[]}
           />

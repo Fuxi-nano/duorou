@@ -38,7 +38,7 @@ export async function updateRule(params: ClassListParams) {
 }
 
 export type ParamsType = {
-  id: string;
+  id: number;
 };
 
 export async function subscribeClass(params: ParamsType) {

@@ -1,22 +1,14 @@
 export type ClassListItem = {
-  key: number;
-  disabled?: boolean;
-  href: string;
-  avatar: string;
+  id: number;
+  isSubscribe?: boolean;
   name: string;
-  owner: string;
-  desc: string;
-  callNo: number;
-  status: number;
-  updatedAt: Date;
-  createdAt: Date;
-  progress: number;
+  modifyDate: Date;
+  createDate: Date;
   specialtyName:string;
   degreeName:string;
-  className:string;
   subjectDesc:string;
-  termId:string;
-  campusId:string;
+  termId:number;
+  campusId:number;
   ageLimit:string;
   tels:string;
   minAge:number;

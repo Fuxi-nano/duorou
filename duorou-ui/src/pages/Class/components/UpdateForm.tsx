@@ -59,7 +59,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       <StepsForm.StepForm
         initialValues={{
           name: props.values.name,
-          desc: props.values.desc,
+          desc: props.values.descript,
         }}
         title={intl.formatMessage({
           id: 'pages.searchTable.updateForm.basicConfig',
