@@ -34,6 +34,12 @@
                 component: './Index',
               },
               {
+                path: '/subscribe',
+                name: 'subscribe',
+                icon: 'crown',
+                component: './Subscribe',
+              },
+              {
                 path: '/class',
                 name: 'class',
                 icon: 'crown',
