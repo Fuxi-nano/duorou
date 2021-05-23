@@ -2,8 +2,11 @@ import request from '@/utils/request';
 import type { ClassListParams, ClassListItem } from './data.d';
 
 export async function queryRule(params?: ClassListParams) {
-  return request('/api/rule', {
-    params,
+  return request('/api/class/page', {
+    method: 'POST',
+    data:{
+      ...params,
+    }
   });
 }
 

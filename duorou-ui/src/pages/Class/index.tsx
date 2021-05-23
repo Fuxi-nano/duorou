@@ -163,6 +163,9 @@ const ClassList: React.FC = () => {
       title: <FormattedMessage id="pages.class.age.limit" defaultMessage="age limit" />,
       dataIndex: 'ageLimit',
       hideInSearch:true,
+      renderText: (text, record) => {
+        return record.minAge+'~'+record.maxAge
+      },
     },
     {
       title: <FormattedMessage id="pages.class.class.name" defaultMessage="class name" />,
@@ -188,8 +191,10 @@ const ClassList: React.FC = () => {
     },
     {
       title: <FormattedMessage id="pages.class.subject.desc" defaultMessage="subject desc" />,
-      dataIndex: 'subjectDesc',
       hideInSearch:true,
+      renderText: (text, record) => {
+        return record.weekday+record.classStartTime+'-'+record.classEndTime;
+      },
     },
     {
       title: <FormattedMessage id="pages.class.tels" defaultMessage="tels" />,
@@ -248,9 +253,56 @@ const ClassList: React.FC = () => {
 
   const detailColumns: ProColumns<ClassListItem>[] = [
     {
+      title: '班级名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '专业程度',
+      dataIndex: 'degreeName',
+    },
+    {
+      title: '招生性质',
+      dataIndex: 'stuTypeName',
+    },
+    {
+      title: <FormattedMessage id="pages.class.age.limit" defaultMessage="age limit" />,
+      renderText: (text, record) => {
+        return record.minAge+'~'+record.maxAge
+      },
+    },
+    {
+      title: '课次',
+      dataIndex: 'times',
+    },
+    {
+      title: '报名区域',
+      dataIndex: 'campusName',
+    },
+    {
+      title: '开课时间',
+      dataIndex: 'beginTime',
+    },
+    {
+      title: '结课时间',
+      dataIndex: 'endTime',
+    },
+    {
+      title: '学期',
+      dataIndex: 'termName',
+    },
+    {
+      title: '教师',
+      dataIndex: 'teacherName',
+    },
+    {
+      title: '上课课表',
+      dataIndex: 'subject',
+    },
+    {
       title: '班级描述',
       dataIndex: 'descript',
     },
+    
   ];
 
   return (
@@ -277,7 +329,18 @@ const ClassList: React.FC = () => {
           //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           // </Button>,
         ]}
-        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
+        request={
+          (params, sorter, filter) => queryRule({ ...params, sorter, filter }).then(res =>{
+            const result = {
+              data:res.data.records,
+              total:res.data.total,
+              success:res.success,
+              pageSize:res.data.size,
+              current:res.data.current
+            }
+            return result
+          })
+        }
         columns={columns}
         // params={{
         //   id:2,
