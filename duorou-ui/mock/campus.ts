@@ -1,9 +1,9 @@
 export default {
     // GET POST 可省略
-    'GET /api/campus/list': {
-        1: { text: '活动中心', status: '1' },
-        6: { text: '滨江中心', status: '6' },
-        2: { text: '发展中心', status: '2' },
-      },
+    'GET /api/campus/list': [
+        { name: '活动中心', id: '1' },
+        { name: '滨江中心', id: '6' },
+        { name: '发展中心', id: '2' },
+    ],
   };
   

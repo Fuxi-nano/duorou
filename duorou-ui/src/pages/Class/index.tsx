@@ -9,8 +9,8 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import type { ClassListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule,subscribeClass } from './service';
+import type { ClassListItem,CampusListItem } from './data.d';
+import { queryRule, updateRule, addRule, removeRule,subscribeClass,queryCampus } from './service';
 
 /**
  * @en-US Add node
@@ -98,8 +98,7 @@ const ClassList: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<ClassListItem[]>([]);
 
   const [specialtyList, setSpecialtyList] = useState<{}>({});
-
-  const [campusList, setCampusList] = useState<{}>({});
+  const [campusList, setCampusList] = useState<CampusListItem[]>([]);
 
   useEffect(() => {
     fetch('/api/specialty/list')
@@ -110,19 +109,11 @@ const ClassList: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/api/campus/list')
-    .then(response => response.json())
-    .then(data => {
+    queryCampus().then(data =>{
       setCampusList(JSON.parse(JSON.stringify(data)));
-    });
+    })
   }, []);
-
-  // const request = async () => [
-  //   { label: '全部', value: 'all' },
-  //   { label: '未解决', value: 'open' },
-  //   { label: '已解决', value: 'closed' },
-  //   { label: '解决中', value: 'processing' },
-  // ];
+  
 
   /**
    * @en-US International configuration
@@ -156,7 +147,6 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.degree.name" defaultMessage="degree name" />,
       dataIndex: 'degreeName',
-      //request,
       hideInSearch:true,
     },
     {
@@ -187,7 +177,10 @@ const ClassList: React.FC = () => {
     {
       title: <FormattedMessage id="pages.class.campus.name" defaultMessage="campus name" />,
       dataIndex: 'campusId',
-      valueEnum: campusList
+      valueType:'select',
+      fieldProps: {
+         options: campusList.map((campus) => ({ label: campus.name, value: campus.id })),
+      },
     },
     {
       title: <FormattedMessage id="pages.class.subject.desc" defaultMessage="subject desc" />,
