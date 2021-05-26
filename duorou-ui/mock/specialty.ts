@@ -3,16 +3,16 @@ export default {
   // GET POST 可省略
   'GET /api/specialty/list': [
     {
-      text: '篮球',
-      status: '1',
+      name: '篮球',
+      id: '1',
     },
     {
-      text: '足球',
-      status: '2',
+      name: '足球',
+      id: '2',
     },
     {
-      text: '乒乓球',
-      status: '3',
+      name: '乒乓球',
+      id: '3',
     },
   ],
 };

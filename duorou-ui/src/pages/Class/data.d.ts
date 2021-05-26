@@ -37,8 +37,3 @@ export type ClassListParams = {
   filter?: Record<string, any[]>;
   sorter?: Record<string, any>;
 };
-
-export type CampusListItem = {
-  id: number;
-  name: string;
-};

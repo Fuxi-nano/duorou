@@ -9,8 +9,10 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import type { ClassListItem,CampusListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule,subscribeClass,queryCampus } from './service';
+import type { ClassListItem} from './data.d';
+import { queryRule, updateRule, addRule, removeRule,subscribeClass } from './service';
+import { queryCampus,CampusListItem } from '@/services/campus';
+import { querySpecialty,SpecialtyListItem } from '@/services/specialty';
 
 /**
  * @en-US Add node
@@ -97,23 +99,18 @@ const ClassList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<ClassListItem>();
   const [selectedRowsState, setSelectedRows] = useState<ClassListItem[]>([]);
 
-  const [specialtyList, setSpecialtyList] = useState<{}>({});
+  const [specialtyList, setSpecialtyList] = useState<SpecialtyListItem[]>([]);
   const [campusList, setCampusList] = useState<CampusListItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/specialty/list')
-    .then(response => response.json())
-    .then(data => {
-      setSpecialtyList(JSON.parse(JSON.stringify(data)));
-    });
-  }, []);
-
-  useEffect(() => {
-    queryCampus().then(data =>{
-      setCampusList(JSON.parse(JSON.stringify(data)));
+    querySpecialty().then(data =>{
+      setSpecialtyList(data);
     })
-  }, []);
-  
+    queryCampus().then(data =>{
+      setCampusList(data);
+    })
+    }, 
+  []);
 
   /**
    * @en-US International configuration
@@ -131,7 +128,10 @@ const ClassList: React.FC = () => {
       ),
       dataIndex: 'specialtyId',
       hideInTable: true,
-      valueEnum: specialtyList
+      valueType:'select',
+      fieldProps: {
+         options: specialtyList.map((specialty) => ({ label: specialty.name, value: specialty.id })),
+      },
     },
     {
       title: (
