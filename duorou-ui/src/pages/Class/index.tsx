@@ -12,7 +12,7 @@ import UpdateForm from './components/UpdateForm';
 import type { ClassListItem} from './data.d';
 import { queryRule, updateRule, addRule, removeRule,subscribeClass } from './service';
 import { queryCampus,CampusListItem } from '@/services/campus';
-import { querySpecialty,SpecialtyListItem } from '@/services/specialty';
+import { listSpecialty,SpecialtyListItem } from '@/services/specialty';
 
 /**
  * @en-US Add node
@@ -103,7 +103,7 @@ const ClassList: React.FC = () => {
   const [campusList, setCampusList] = useState<CampusListItem[]>([]);
 
   useEffect(() => {
-    querySpecialty().then(data =>{
+    listSpecialty().then(data =>{
       setSpecialtyList(data);
     })
     queryCampus().then(data =>{

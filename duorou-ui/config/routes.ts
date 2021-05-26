@@ -40,6 +40,12 @@
                 component: './Subscribe',
               },
               {
+                path: '/specialty',
+                name: 'specialty',
+                icon: 'crown',
+                component: './Specialty',
+              },
+              {
                 path: '/class',
                 name: 'class',
                 icon: 'crown',
