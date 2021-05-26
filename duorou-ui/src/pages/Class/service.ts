@@ -52,9 +52,3 @@ export async function subscribeClass(params: ParamsType) {
     },
   });
 }
-
-export async function queryCampus() {
-  return request('/api/campus/list', {
-    method: 'GET',
-  });
-}
