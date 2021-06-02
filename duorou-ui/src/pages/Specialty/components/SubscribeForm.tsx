@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { Modal } from 'antd';
 import {
   ProFormSelect,
   ProFormText,
-  ProFormTextArea,
   StepsForm,
-  ProFormRadio,
-  ProFormDateTimePicker,
+  ProFormCheckbox,
 } from '@ant-design/pro-form';
-import { useIntl, FormattedMessage } from 'umi';
+import { useIntl } from 'umi';
 
 import {SpecialtyListItem } from '@/services/specialty';
+import { queryCampus,CampusListItem } from '@/services/campus';
+import { queryStudent,StudentItem } from '@/services/student';
 
 export type FormValueType = {
   id?:number;
@@ -29,6 +29,18 @@ export type SpecialtyFormProps = {
 };
 
 const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
+  const [campusList, setCampusList] = useState<CampusListItem[]>([]);
+  const [studentList, setStudentList] = useState<StudentItem[]>([]);
+
+  useEffect(() => {
+    queryCampus().then(data =>{
+      setCampusList(data);
+    })
+    queryStudent().then(data =>{
+      setStudentList(data);
+    })
+    }, 
+  []);
   const intl = useIntl();
   return (
     <StepsForm
@@ -76,123 +88,73 @@ const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
           width="md"
           disabled
         />
-        <ProFormTextArea
-          name="desc"
-          width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleDesc.descLabel',
-            defaultMessage: '规则描述',
-          })}
-          placeholder={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleDesc.descPlaceholder',
-            defaultMessage: '请输入至少五个字符',
-          })}
-          rules={[
-            {
-              required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.updateForm.ruleDesc.descRules"
-                  defaultMessage="请输入至少五个字符的规则描述！"
-                />
-              ),
-              min: 5,
-            },
-          ]}
-        />
       </StepsForm.StepForm>
       <StepsForm.StepForm
         initialValues={{
-          target: '0',
+          campusId: '2',
           template: '0',
         }}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.updateForm.ruleProps.title',
-          defaultMessage: '配置规则属性',
-        })}
+        title="选择范围"
       >
         <ProFormSelect
-          name="target"
+          name="campusId"
           width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.object',
-            defaultMessage: '监控对象',
-          })}
-          valueEnum={{
-            0: '表一',
-            1: '表二',
+          label="报名区域"
+          fieldProps={{
+            options:campusList.map((campus) => ({ label: campus.name, value: campus.id })),
           }}
+          rules={[
+            {
+              required: true,
+              message: "请选择报名区域",
+            },
+          ]}
         />
         <ProFormSelect
-          name="template"
+          name="termId"
           width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleProps.templateLabel',
-            defaultMessage: '规则模板',
-          })}
+          label="学期"
           valueEnum={{
-            0: '规则模板一',
-            1: '规则模板二',
+            0: '春季',
+            1: '暑期',
+            2: '秋季',
+            3: '寒假',
           }}
-        />
-        <ProFormRadio.Group
-          name="type"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleProps.typeLabel',
-            defaultMessage: '规则类型',
-          })}
-          options={[
+          rules={[
             {
-              value: '0',
-              label: '强',
+              required: true,
+              message: "请选择学期",
             },
+          ]}
+        />
+        <ProFormCheckbox.Group
+          name="rightTime"
+          label="时间"
+          options={['周一', '周二', '周三','周四','周五','周六','周日']}
+          rules={[
             {
-              value: '1',
-              label: '弱',
+              required: true,
+              message: "请选择时间",
             },
           ]}
         />
       </StepsForm.StepForm>
       <StepsForm.StepForm
-        initialValues={{
-          type: '1',
-          frequency: 'month',
-        }}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.updateForm.schedulingPeriod.title',
-          defaultMessage: '设定调度周期',
-        })}
+        title="选择学生"
       >
-        <ProFormDateTimePicker
-          name="time"
+        <ProFormSelect
+          name="studentId"
+          label="学生"
           width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.schedulingPeriod.timeLabel',
-            defaultMessage: '开始时间',
-          })}
+          fieldProps={{
+            options:studentList.map((student) => ({ label: student.name, value: student.id })),
+          }}
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.updateForm.schedulingPeriod.timeRules"
-                  defaultMessage="请选择开始时间！"
-                />
-              ),
+              message: "请选择学生",
             },
           ]}
-        />
-        <ProFormSelect
-          name="frequency"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.object',
-            defaultMessage: '监控对象',
-          })}
-          width="md"
-          valueEnum={{
-            month: '月',
-            week: '周',
-          }}
         />
       </StepsForm.StepForm>
     </StepsForm>
