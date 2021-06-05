@@ -6,6 +6,7 @@ export async function queryRule(params?: ClassListParams) {
     method: 'POST',
     data:{
       ...params,
+      size:params?.pageSize
     }
   });
 }

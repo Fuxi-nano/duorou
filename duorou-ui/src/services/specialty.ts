@@ -40,6 +40,7 @@ export async function querySpecialty(params?: SpecialtyListParams) {
       method: 'POST',
       data:{
         ...params,
+        size:params?.pageSize
       }
     });
   }
