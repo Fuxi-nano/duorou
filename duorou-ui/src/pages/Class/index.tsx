@@ -103,11 +103,11 @@ const ClassList: React.FC = () => {
   const [campusList, setCampusList] = useState<CampusListItem[]>([]);
 
   useEffect(() => {
-    listSpecialty().then(data =>{
-      setSpecialtyList(data);
+    listSpecialty().then(res =>{
+      setSpecialtyList(res.data);
     })
-    queryCampus().then(data =>{
-      setCampusList(data);
+    queryCampus().then(res =>{
+      setCampusList(res.data);
     })
     }, 
   []);

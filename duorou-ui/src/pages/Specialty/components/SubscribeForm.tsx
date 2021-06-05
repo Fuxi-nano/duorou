@@ -14,11 +14,10 @@ import { queryStudent,StudentItem } from '@/services/student';
 
 export type FormValueType = {
   id?:number;
-  target?: string;
-  template?: string;
-  type?: string;
-  time?: string;
-  frequency?: string;
+  campusId?: number;
+  termId?: number;
+  rightTime?: string;
+  studentId?: string;
 } & Partial<SpecialtyListItem>;
 
 export type SpecialtyFormProps = {
@@ -33,11 +32,11 @@ const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
   const [studentList, setStudentList] = useState<StudentItem[]>([]);
 
   useEffect(() => {
-    queryCampus().then(data =>{
-      setCampusList(data);
+    queryCampus().then(res =>{
+      setCampusList(res.data);
     })
-    queryStudent().then(data =>{
-      setStudentList(data);
+    queryStudent().then(res =>{
+      setStudentList(res.data);
     })
     }, 
   []);
@@ -71,6 +70,7 @@ const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
     >
       <StepsForm.StepForm
         initialValues={{
+          id:props.values.id,
           name: props.values.name,
           desc: props.values.attitudes,
         }}
@@ -79,6 +79,12 @@ const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
           defaultMessage: '基本信息',
         })}
       >
+        <ProFormText
+          name="id"
+          label="课程ID"
+          width="md"
+          disabled
+        />
         <ProFormText
           name="name"
           label={intl.formatMessage({
@@ -131,12 +137,6 @@ const SpecialtyForm: React.FC<SpecialtyFormProps> = (props) => {
           name="rightTime"
           label="时间"
           options={['周一', '周二', '周三','周四','周五','周六','周日']}
-          rules={[
-            {
-              required: true,
-              message: "请选择时间",
-            },
-          ]}
         />
       </StepsForm.StepForm>
       <StepsForm.StepForm

@@ -16,6 +16,9 @@ export default {
       id: '3',
     },
   ],
+  'POST /api/specialty/subscribe': (req: Request, res: Response) => {
+    res.send({ status: 'ok'});
+  },
   'POST /api/specialty/page': (req: Request, res: Response) => {
     res.send(
       {

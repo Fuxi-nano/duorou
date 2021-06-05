@@ -11,9 +11,7 @@ import { querySpecialty,subscribe,SpecialtyListItem } from '@/services/specialty
 const handleSubscribe = async (fields: FormValueType) => {
   const hide = message.loading('Configuring');
   try {
-    await subscribe({
-      id: fields.id,
-    });
+    await subscribe(fields);
     hide();
 
     message.success('Configuration is successful');
