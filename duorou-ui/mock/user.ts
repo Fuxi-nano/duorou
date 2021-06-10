@@ -16,11 +16,11 @@ async function getFakeCaptcha(req: Request, res: Response) {
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/user/info': {
+  'GET /api/user/info': {"data":{
     name: 'Serati Ma',
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     id: '00000001',
-  },
+  }},
   // GET POST 可省略
   'GET /api/users': [
     {

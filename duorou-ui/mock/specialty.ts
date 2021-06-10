@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // GET POST 可省略
-  'GET /api/specialty/list': [
+  'GET /api/specialty/list': {"data":[
     {
       name: '篮球',
       id: '1',
@@ -15,7 +15,7 @@ export default {
       name: '乒乓球',
       id: '3',
     },
-  ],
+  ]},
   'POST /api/specialty/subscribe': (req: Request, res: Response) => {
     res.send({ status: 'ok'});
   },

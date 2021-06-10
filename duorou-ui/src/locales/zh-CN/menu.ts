@@ -53,4 +53,5 @@ export default {
   'menu.specialty': '课程管理',
   'menu.index': '首页',
   'menu.subscribe':'班级订阅',
+  'menu.subscribe.specialty':'课程订阅',
 };

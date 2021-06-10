@@ -71,7 +71,10 @@ export default {
   'pages.class.subject.desc':'上课课表',
   'pages.class.tels':'咨询电话',
   'pages.class.term.name':'学期',
+  'pages.class.right.time':'日期',
+  'pages.specialty.subscribe.student.name':'学生',
   'pages.specialty.subscribe':'订阅课程',
+  'pages.specialty.cancel.subscribe':'取消订阅',
   'pages.searchTable.specialtyForm.subscribe': '订阅设置',
   'pages.searchTable.specialtyForm.name': '课程名称',
 };
