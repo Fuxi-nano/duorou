@@ -1,47 +1,18 @@
-import { Button, message, Input, Drawer } from 'antd';
+import { message } from 'antd';
 import React, { useState, useRef,useEffect } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
-import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
+import { PageContainer } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
-import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
-import ProDescriptions from '@ant-design/pro-descriptions';
-import type { ClassListItem } from './data';
-import { queryRule, removeRule,subscribeClass } from './service';
+import { listSpecialtySubscribe,subscribe,ListItem } from '@/services/specialtySubscribe';
 import { queryCampus,CampusListItem } from '@/services/campus';
 
 
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: ClassListItem[]) => {
-  const hide = message.loading('Deleting');
-  if (!selectedRows) return true;
-  try {
-    await removeRule({
-      key: selectedRows.map((row) => row.id),
-    });
-    hide();
-    message.success('Deleted successfully and will refresh soon');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Delete failed, please try again');
-    return false;
-  }
-};
-
 const ClassList: React.FC = () => {
 
-  const [showDetail, setShowDetail] = useState<boolean>(false);
-
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<ClassListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<ClassListItem[]>([]);
+
+  //const [setSelectedRows] = useState<ListItem[]>([]);
 
   const [campusList, setCampusList] = useState<CampusListItem[]>([]);
 
@@ -58,7 +29,7 @@ const ClassList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  const columns: ProColumns<ClassListItem>[] = [
+  const columns: ProColumns<ListItem>[] = [
     {
       title: (
         <FormattedMessage
@@ -121,12 +92,6 @@ const ClassList: React.FC = () => {
       hideInSearch:true,
     },
     {
-      title: '日期',
-      dataIndex: 'birthday',
-      valueType: 'date',
-      hideInTable: true,
-    },
-    {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
       dataIndex: 'option',
       valueType: 'option',
@@ -134,12 +99,12 @@ const ClassList: React.FC = () => {
         <a
           key="subscribe"
           onClick={async () => {
-            const response=await subscribeClass({
+            const response=await subscribe({
               id: record.id,
             });
             if (response.status === 'ok') {
               message.success('successfully and will refresh soon');
-              setSelectedRows([]);
+              //setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
             }else{
               message.error('subscribe error');
@@ -151,82 +116,20 @@ const ClassList: React.FC = () => {
       ],
     },
   ];
-
-  const detailColumns: ProColumns<ClassListItem>[] = [
-    {
-      title: '班级描述',
-      dataIndex: 'descript',
-    },
-  ];
-
   return (
     <PageContainer>
-      <ProTable<ClassListItem>
+      <ProTable<ListItem>
         actionRef={actionRef}
         rowKey="id"
         search={false}
-        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
+        request={() => listSpecialtySubscribe()}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
+            //setSelectedRows(selectedRows);
           },
         }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen" />{' '}
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
-              &nbsp;&nbsp;
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-          <Button type="primary">
-            <FormattedMessage
-              id="pages.searchTable.batchApproval"
-              defaultMessage="Batch approval"
-            />
-          </Button>
-        </FooterToolbar>
-      )}
-      <Drawer
-        width={600}
-        visible={showDetail}
-        onClose={() => {
-          setCurrentRow(undefined);
-          setShowDetail(false);
-        }}
-        closable={false}
-      >
-        {currentRow?.name && (
-          <ProDescriptions<ClassListItem>
-            column={2}
-            title={currentRow?.name}
-            request={async () => ({
-              data: currentRow || {},
-            })}
-            params={{
-              id: currentRow?.name,
-            }}
-            columns={detailColumns as ProDescriptionsItemProps<ClassListItem>[]}
-          />
-        )}
-      </Drawer>
     </PageContainer>
   );
 };
