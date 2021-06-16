@@ -4,7 +4,7 @@ import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { listSpecialtySubscribe,subscribe,ListItem } from '@/services/specialtySubscribe';
+import { listStudentSpecialty,subscribe,ListItem } from '@/services/StudentSpecialty';
 import { queryCampus,CampusListItem } from '@/services/campus';
 
 
@@ -122,13 +122,14 @@ const ClassList: React.FC = () => {
         actionRef={actionRef}
         rowKey="id"
         search={false}
-        request={() => listSpecialtySubscribe()}
+        request={() => listStudentSpecialty().then(res =>{
+          const result = {
+            data:res.data,
+            success:true
+          }
+          return result
+        })}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            //setSelectedRows(selectedRows);
-          },
-        }}
       />
     </PageContainer>
   );

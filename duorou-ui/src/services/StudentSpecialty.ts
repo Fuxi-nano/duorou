@@ -12,8 +12,8 @@ export type ListItem = {
     campusId:number;
   };
 
-export async function listSpecialtySubscribe() {
-    return request('/api/specialty/subscribe/list', {
+export async function listStudentSpecialty() {
+    return request('/api/student_specialty/list', {
         method: 'GET',
     });
 }
