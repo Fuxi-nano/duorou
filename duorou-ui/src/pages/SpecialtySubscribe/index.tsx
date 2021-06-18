@@ -4,7 +4,7 @@ import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { listStudentSpecialty,subscribe,ListItem } from '@/services/StudentSpecialty';
+import { listStudentSpecialty,cancelSubscribe,ListItem } from '@/services/StudentSpecialty';
 import { queryCampus,CampusListItem } from '@/services/campus';
 
 
@@ -99,7 +99,7 @@ const ClassList: React.FC = () => {
         <a
           key="subscribe"
           onClick={async () => {
-            const response=await subscribe({
+            const response=await cancelSubscribe({
               id: record.id,
             });
             if (response.status === 'ok') {
@@ -107,7 +107,7 @@ const ClassList: React.FC = () => {
               //setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
             }else{
-              message.error('subscribe error');
+              message.error('cancel subscribe error');
             }
           }}
         >

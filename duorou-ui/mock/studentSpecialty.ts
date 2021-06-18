@@ -26,7 +26,7 @@ export default {
     ],
     "serverTime": "1623843818861"
   },
-  'POST /api/specialty/subscribe': (req: Request, res: Response) => {
+  'POST /api/specialty/cancel_subscribe': (req: Request, res: Response) => {
     res.send({ status: 'ok'});
   },
 };

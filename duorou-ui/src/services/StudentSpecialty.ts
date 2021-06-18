@@ -22,8 +22,8 @@ export async function listStudentSpecialty() {
     id?: number;
   };
   
-  export async function subscribe(params: ParamsType) {
-    return request('/api/specialty/subscribe', {
+  export async function cancelSubscribe(params: ParamsType) {
+    return request('/api/specialty/cancel_subscribe', {
       method: 'POST',
       data: {
         ...params,
