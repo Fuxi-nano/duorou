@@ -1,6 +1,7 @@
 package com.duorou.backend.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,7 +33,7 @@ public class StudentController {
 	@ApiOperation("学生列表")
 	public Result<List<Student>> list(@ApiIgnore HttpSession session) {
 		if (session.getAttribute(SESSION_NAME) == null) {
-			return Result.ok(new ArrayList<Student>());
+			return Result.ok(Collections.EMPTY_LIST);
 		}
 		Long userId = (Long) session.getAttribute(SESSION_NAME);
 		return Result.ok(studentService.listByUserId(userId));

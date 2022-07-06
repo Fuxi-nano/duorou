@@ -25,17 +25,17 @@ public class CampusController {
 		List<Map<String, String>> resultList = new ArrayList<>();
 		Map<String, String> a = new HashMap<String, String>();
 		a.put("id", "1");
-		a.put("name", "活动中心");
+		a.put("name", "test1");
 		resultList.add(a);
 
 		Map<String, String> b = new HashMap<String, String>();
 		b.put("id", "2");
-		b.put("name", "发展中心");
+		b.put("name", "test2");
 		resultList.add(b);
 
 		Map<String, String> c = new HashMap<String, String>();
 		c.put("id", "6");
-		c.put("name", "滨江中心");
+		c.put("name", "test3");
 		resultList.add(c);
 		return Result.ok(resultList);
 	}
