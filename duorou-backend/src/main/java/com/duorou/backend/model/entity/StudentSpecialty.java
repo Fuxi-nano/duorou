@@ -32,6 +32,8 @@ public class StudentSpecialty extends BaseInputEntity {
 	
 	private String classIds;
 
+	private String ignoreClassIds;
+
 	private Boolean isEnable;
 
 

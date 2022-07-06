@@ -24,4 +24,8 @@ public class SubscribeDTO implements Serializable {
 	
 	private List<String> rightTime;
 
+	private String classIds;
+
+	private String ignoreClassIds;
+
 }

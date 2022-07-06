@@ -76,6 +76,8 @@ public class SpecialtyController {
 		studentSpecialty.setStudentId(subscribeDTO.getStudentId());
 		studentSpecialty.setSpecialtyId(subscribeDTO.getId());
 		studentSpecialty.setSpecialtyName(specialty.getName());
+		studentSpecialty.setClassIds(subscribeDTO.getClassIds());
+		studentSpecialty.setIgnoreClassIds(subscribeDTO.getIgnoreClassIds());
 		return Result.ok(studentSpecialtyService.insertOrUpdate(studentSpecialty));
 	}
 }
